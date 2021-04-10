@@ -1,0 +1,106 @@
+{
+  "name": "bobbax-app",
+  "version": "1.0.0",
+  "description": "Bobbax Application",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "publish": "electron-builder --win -p always",
+    "build": "electron-builder --win"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-notarize": "^1.0.0",
+    "electron-updater": "^4.3.8"
+  },
+  "devDependencies": {
+    "electron": "^12.0.2",
+    "electron-builder": "^22.10.5"
+  },
+  "build": {
+    "appId": "fr.bobbax.BobbaxApp",
+    "files": "!build/SignHook.js",
+    "extraResources": [
+      "./flash/**"
+    ],
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "kozennnn",
+        "repo": "bobbax-hotel-app"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "uninstallDisplayName": "City",
+      "oneClick": true,
+      "perMachine": false,
+      "artifactName": "Bobbax-${version}.${ext}"
+    },
+    "afterSign": "build/SignHook.js",
+    "mac": {
+      "icon": "icon.png",
+      "category": "public.games.social-networking",
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements-mac.plist",
+      "entitlementsInherit": "build/entitlements-mac.plist",
+      "target": [
+        "dmg"
+      ]
+    },
+    "protocols": {
+      "name": "bobbax-protocol",
+      "schemes": [
+        "bobbax"
+      ]
+    },
+    "dmg": {
+      "iconSize": 160,
+      "contents": [
+        {
+          "x": 180,
+          "y": 170
+        },
+        {
+          "x": 480,
+          "y": 170,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "ia32",
+            "armv7l",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "Network;Chat"
+    }
+  }
+}

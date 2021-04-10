@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>Data: <input id="data"/></p>
+<script>
+    const {getLink} = require('electron').remote.require('./main.js');
+    document.querySelector('#data').value = getLink();
+</script>
+</body>
+</html>
