@@ -55,7 +55,7 @@
     "nsis": {
       "installerIcon": "icon.ico",
       "uninstallerIcon": "icon.ico",
-      "uninstallDisplayName": "City",
+      "uninstallDisplayName": "Bobbax Hôtel",
       "oneClick": true,
       "perMachine": false,
       "artifactName": "Bobbax-${version}.${ext}"
