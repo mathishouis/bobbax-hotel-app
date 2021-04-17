@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Bobbax Application",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kozennnn/bobbax-hotel-app.git"
+  },
   "scripts": {
     "start": "electron .",
     "publish": "electron-builder --win -p always",
@@ -11,11 +15,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "discord-rpc": "^3.2.0",
     "electron-notarize": "^1.0.0",
-    "electron-updater": "^4.3.8"
+    "electron-updater": "^4.3.8",
+    "node-machine-id": "^1.1.12"
   },
   "devDependencies": {
-    "electron": "^12.0.2",
+    "electron": "^11.1.0",
     "electron-builder": "^22.10.5"
   },
   "build": {

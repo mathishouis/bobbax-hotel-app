@@ -1,10 +1,117 @@
 <!DOCTYPE html>
 <html>
-<body>
-<p>Data: <input id="data"/></p>
-<script>
-    const {getLink} = require('electron').remote.require('./main.js');
-    document.querySelector('#data').value = getLink();
-</script>
-</body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="assets/css/app.css">
+        <script>if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }</script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+                integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+                integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <script>if (window.module) module = window.module;</script>
+    </head>
+    <body>
+        <div class="frame" style="width: 100%; height: 100%;">
+            <div class="header" id="dragger">
+                <div class="title">Bobbax Hôtel</div>
+                <div class="right">
+                    <img class="img-button hoverable" src="./assets/img/minimize.png" style="margin-right: 3px;" id="min-btn">
+                    <img class="img-button hoverable" src="./assets/img/maximize.png" style="margin-right: 3px;" id="max-btn">
+                    <img class="img-button hoverable" src="./assets/img/close.png" id="close-btn">
+                </div>
+            </div>
+            <div class="content" id="content">
+                <!--<div class="loading-container" style="display: block;">
+                    <div class="loading-duck-container">
+                        <img src="./assets/img/connecting_duck_01.png">
+                    </div>
+                    <div class="loading-text-container">
+                        chargement de l'hôtel<span id="wait">.</span>
+                    </div>
+                </div>
+                <div class="need-auth-container" style="display: none;">
+                    <div class="auth-container">
+                        <input style="width: 300px;" placeholder="Code d'accès donné sur le site de Bobbax">
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+        <script>
+            const {getLink} = require('electron').remote.require('./index.js');
+
+            console.log(getLink());
+            let url = getLink().toString();
+
+            console.log(url);
+
+            let queryparams = url.split(':');
+
+            console.log(queryparams);
+            let params = queryparams[1].split('/');
+            console.log(params);
+            let token = params[2].split('=');
+            console.log(token);
+
+            console.log(token[1]);
+
+            let iframe = document.createElement('iframe');
+            iframe.style.border = "none";
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.position = "fixed";
+            iframe.style.borderRadius = "8px";
+            iframe.src = "http://bobbax.fr/hotel/" + token[1];
+
+            let content = document.getElementById('content');
+            content.appendChild(iframe);
+
+        </script>
+        <script>
+            (function () {
+
+                var remote = require('electron').remote;
+
+
+                function init() {
+
+
+
+                    document.getElementById("min-btn").addEventListener("click", function (e) {
+                        var window = remote.BrowserWindow.getFocusedWindow();
+                        window.minimize();
+                    });
+
+                    document.getElementById("max-btn").addEventListener("click", function (e) {
+                        var window = remote.BrowserWindow.getFocusedWindow();
+                        window.maximize();
+                    });
+
+                    document.getElementById("close-btn").addEventListener("click", function (e) {
+                        var window = remote.BrowserWindow.getFocusedWindow();
+                        window.close();
+                    });
+                };
+
+                document.onreadystatechange = function () {
+                    if (document.readyState == "complete") {
+                        init();
+                    }
+                };
+
+            })();
+        </script>
+
+        <script>
+            var dots = window.setInterval( function() {
+                var wait = document.getElementById("wait");
+                if ( wait.innerHTML.length > 2 )
+                    wait.innerHTML = "";
+                else
+                    wait.innerHTML += ".";
+            }, 500);
+        </script>
+    </body>
 </html>
